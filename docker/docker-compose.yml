@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:1.13
+    ports:
+      - ${NGINX_PORT_HOST}:${NGINX_PORT_CONTAINER}
+    volumes:
+      - ${APP_PATH_HOST_BACK}:${APP_PATH_CONTAINER_BACK}
+      - ${SITES_ENABLED_HOST_BACK}:${SITES_ENABLED_CONTAINER_BACK}
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: ${BACKEND_FOLDER}
+      dockerfile: Dockerfile_dev
+    image: fpm_7.2:latest
+    volumes:
+      - ${APP_PATH_HOST_BACK}:${APP_PATH_CONTAINER_BACK}
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    working_dir: ${APP_PATH_CONTAINER_BACK}
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: test_password
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: devpass
+    volumes:
+      - ../db_volume:/var/lib/mysql
+    ports:
+      - ${DB_PORT_HOST}:${DB_PORT_CONTAINER}
+
+  composer:
+    image: composer:1.7.2
+    volumes:
+          - ${APP_PATH_HOST_BACK}:${APP_PATH_CONTAINER_BACK}
+    working_dir: ${APP_PATH_CONTAINER_BACK}
+    command: composer update --ignore-platform-reqs --no-scripts
+
+#  inex_front:
+#    image: node:8-alpine
+#    ports:
+#          - ${REACT_PORT_HOST}:${REACT_PORT_CONTAINER}
+#    volumes:
+#      - ${APP_PATH_HOST_FRONT}:${APP_PATH_CONTAINER_FRONT}
+#    working_dir: ${APP_PATH_CONTAINER_FRONT}
+#    command: [sh, -c, "npm install && npm start"]

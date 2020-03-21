@@ -1,0 +1,12 @@
+# dependencies
+/backend/vendor
+node_modules/
+/frontend/node_modules/
+
+/.idea
+/dist
+/.DS_Store
+/src/.DS_Store
+/src/assets/.DS_Store
+src/assets/icons/.DS_Store
+

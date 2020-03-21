@@ -1,0 +1,14 @@
+server {
+        root   /home/frontend/build;
+        listen 443 default ssl;
+        server_name  challengepro.ru;
+
+        ssl on;
+        ssl_certificate /root/challengepro_ru.crt;
+        ssl_certificate_key /root/challengepro_ru.key;
+
+        location / {
+            try_files $uri $uri/ /index.html$is_args$args;
+            index  index.html index.htm;
+        }
+    }

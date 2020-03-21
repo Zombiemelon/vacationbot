@@ -1,0 +1,16 @@
+{
+  "name": "ichallengeyou",
+  "version": "1.0.0",
+  "description": "React - core of the project, JS library ReactDOM - allows to render DOM in React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Zombiemelon@bitbucket.org/Zombiemelon/ichallengeyou.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/Zombiemelon/ichallengeyou#readme"
+}

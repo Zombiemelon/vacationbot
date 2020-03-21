@@ -1,0 +1,97 @@
+body {
+    font-size: 10px;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 50px;
+    font-size: 2vh;
+    font-family: DejaVu Sans;
+}
+
+header * {
+    margin: 1vh;
+}
+
+.upper-header {
+    display: flex;
+    align-items: baseline;
+    border-bottom: 3px solid black;
+}
+
+.middle-header {
+    margin-bottom: 3vh;
+}
+
+.lower-header {
+    display: flex;
+    align-content: flex-end;
+}
+
+.address {
+    flex-grow: 1;
+    margin: 0;
+}
+
+.date-and-place {
+    margin: 0;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.content * {
+    margin: 1vh;
+}
+
+.document-number {
+    font-size: 2.2vh;
+    font-weight: bold;
+}
+
+.main-table {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(3, auto);
+    padding: 1vh;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.table-item {
+    margin: 0;
+    padding: 1vh;
+    border-top: 1px solid black;
+}
+
+.table-item-cistern {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 2;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(3, auto);
+}
+
+.table-item-last {
+    border-bottom: 1px solid black;
+}
+
+.respect-signature {
+    margin: 0;
+    display: flex;
+}
+
+.respect {
+    flex-grow: 1;
+}
+
+.signature {
+    flex-grow: 1;
+}
+
+.signature img {
+    max-height: 7vh;
+}
+
+

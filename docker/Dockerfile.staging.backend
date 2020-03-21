@@ -1,0 +1,44 @@
+FROM composer:1.7.2 as build-stage
+COPY ./backend /app
+RUN composer install --ignore-platform-reqs --no-scripts
+
+FROM php:7.3-fpm
+ARG arg
+ENV staging=$arg
+RUN apt-get update; \
+    apt-get install -y libpng-dev; \
+    docker-php-ext-install gd \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    sockets \
+    json
+RUN apt-get -y install nginx \
+    supervisor \
+    cron \
+    vim \
+    procps \
+    telnet
+COPY ./docker/nginx/sites-enabled-back /etc/nginx/conf.d/default.conf
+COPY --from=build-stage /app /home/backend
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+COPY ./docker/nginx/challengepro_ru.crt /root/challengepro_ru.crt
+COPY ./docker/nginx/challengepro_ru.key /root/challengepro_ru.key
+COPY ./docker/php/crontab /etc/crontab
+
+RUN chown -R :www-data /home/backend/storage/logs/; \
+    chown -R :www-data /home/backend/storage/; \
+    chown -R :www-data /home/backend/public; \
+    chown -R :www-data /home/backend/tests; \
+    chmod -R 777 /home/backend/storage; \
+    chmod -R g+w /home/backend/public; \
+    chmod -R 777 /home/backend/tests; \
+    chmod -R 777 /home/backend/migration.sh;
+RUN mkdir /home/backend/tests/functional
+RUN cd /home/backend; \
+    php artisan key:generate
+
+EXPOSE 80
+
+CMD ["service", "supervisor", "start"]
