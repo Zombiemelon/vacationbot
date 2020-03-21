@@ -155,7 +155,7 @@ c. Delete image
 6. Deploy quite clear
 7. Environment variable get data from Jenkins credentials and are inserted into `.env` with `sed` command
 
-#SSL Certificate 
+# SSL Certificate 
 1. Go to [https://my.gogetssl.com/](https://my.gogetssl.com/)
 2. Create new certificate
 3. Verify via email. The easiest way is to do it via Yandex.
@@ -163,7 +163,7 @@ c. Delete image
 5. Copy the data to `challengepro_ru.crt`
 6. If required generate CSR with key at [https://my.gogetssl.com/](https://my.gogetssl.com/). Cope the CSR and the key to `challengepro_ru.key`
 
-#TODO
+# TODO
 1. Remove `db_volume` from the repository and find a way to set up test db in another way
 2. Rewrite with state pattern `getText(Request $request): string`
 3. Apply queue for sending photos
