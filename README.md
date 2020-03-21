@@ -170,5 +170,5 @@ c. Delete image
 4. Move to new EC2
 5. Change RDS security group so it is not accessible from outside
 6. Setup debugger to work during tests
-7. Replace env check with mock `getPhotoByDestination`  
+7. Replace env check with mock `getPhotoByDestination`
 
