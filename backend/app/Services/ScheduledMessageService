@@ -1,0 +1,41 @@
+<?php
+
+
+namespace App\Services;
+
+
+use App\Vacation;
+use Exception;
+
+class ScheduledMessageService
+{
+    public function sendDailyMessage()
+    {
+        $vacations = Vacation::all();
+        foreach ($vacations as $vacation) {
+            if($vacation->vacation_date < date('Y-m-d H:i:s')) {
+                $vacation->delete();
+            }
+            $captionService = new CommentService();
+            $caption = $captionService->getComment($vacation->destination, $vacation->vacation_date);
+            $destination = $vacation->destination;
+            $photoDownloadService = new PhotoDownloadService();
+            try {
+                $photoRaw = $photoDownloadService->getPhotoByDestination($destination);
+            } catch (Exception $exception) {
+                continue;
+            }
+            $photo = $photoDownloadService->getPhotoUrl($photoRaw);
+            $caption .= urlencode($photoDownloadService->getUnsplashLegalText($photoRaw));
+            $chat_id = $vacation->chat_id;
+            $sendPhotoService = new TelegramBotService();
+            try {
+                $sendPhotoService->sendPhoto($chat_id, $photo, $caption);
+            } catch(Exception $exception) {
+                if($exception->getCode() == 403) {
+                    $vacation->delete();
+                }
+            }
+        }
+    }
+}
