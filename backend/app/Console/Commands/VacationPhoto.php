@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Services\CommentService;
 use App\Services\PhotoDownloadService;
-use App\Services\ScheduledMessageService;
 use App\Services\TelegramBotService;
 use App\Vacation;
 use DateTime;
@@ -42,7 +41,25 @@ class VacationPhoto extends Command
      */
     public function handle()
     {
-        $scheduledMessageService = new ScheduledMessageService();
-        $scheduledMessageService->sendDailyMessage();
+        $vacations = Vacation::all();
+        foreach ($vacations as $vacation) {
+            if($vacation->vacation_date < date('Y-m-d H:i:s')) {
+                $vacation->delete();
+            }
+            $captionService = new CommentService();
+            $caption = $captionService->getComment($vacation->destination, $vacation->vacation_date);
+            $destination = $vacation->destination;
+            $photoDownloadService = new PhotoDownloadService();
+            try {
+                $photoRaw = $photoDownloadService->getPhotoByDestination($destination);
+            } catch (Exception $exception) {
+                continue;
+            }
+            $photo = $photoDownloadService->getPhotoUrl($photoRaw);
+            $caption .= urlencode($photoDownloadService->getUnsplashLegalText($photoRaw));
+            $chat_id = $vacation->chat_id;
+            $sendPhotoService = new TelegramBotService();
+            $sendPhotoService->sendPhoto($chat_id, $photo, $caption);
+        }
     }
 }
