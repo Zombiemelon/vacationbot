@@ -23,4 +23,4 @@ Route::post('/signup', 'Auth\RegisterController@create');
 Route::get('/getVacationImage', 'VacationImageController@getVacationImage');
 Route::get('/setWebhook', 'BotController@setWebhook');
 Route::post('/AAEAoCQbymlnr_6sDs1rCsjQcRxLtbLtWZQ', 'BotController@vacation');
-Route::post('/facebookWebhook', 'BotController@facebookVacation');
+Route::get('/facebookWebhook', 'BotController@facebookVacation');
