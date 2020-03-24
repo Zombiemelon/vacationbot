@@ -26,8 +26,13 @@
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^7.5",
         "doctrine/dbal": "v2.9.2",
-        "codeception/codeception": "v3.1.1",
-        "donatj/mock-webserver": "v2.1.*"
+        "codeception/codeception": "^4.0",
+        "donatj/mock-webserver": "v2.1.*",
+        "codeception/module-webdriver": "v1.0.*",
+        "codeception/module-rest": "v1.2.*",
+        "codeception/module-laravel5": "v1.0.*",
+        "codeception/module-asserts":"v1.1.*",
+        "codeception/module-cli":"v1.0.*"
     },
     "config": {
         "optimize-autoloader": true,

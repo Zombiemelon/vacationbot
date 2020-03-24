@@ -1,0 +1,6 @@
+actor: FunctionalTester
+modules:
+  enabled:
+    - Laravel5:
+        part: ORM
+    - Cli

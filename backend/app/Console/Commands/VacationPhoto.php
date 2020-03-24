@@ -3,11 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Services\CommentService;
-use App\Services\PhotoDownloadService;
 use App\Services\ScheduledMessageService;
-use App\Services\TelegramBotService;
-use App\Vacation;
-use DateTime;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -27,14 +23,16 @@ class VacationPhoto extends Command
      */
     protected $description = 'Send photo to Telegram';
 
+    protected $scheduledMessageService;
+
     /**
      * Create a new command instance.
-     *
-     * @return void
+     * @param ScheduledMessageService $scheduledMessageService
      */
-    public function __construct()
+    public function __construct(ScheduledMessageService $scheduledMessageService)
     {
         parent::__construct();
+        $this->scheduledMessageService = $scheduledMessageService;
     }
 
     /**
@@ -42,7 +40,6 @@ class VacationPhoto extends Command
      */
     public function handle()
     {
-        $scheduledMessageService = new ScheduledMessageService();
-        $scheduledMessageService->sendDailyMessage();
+        $this->scheduledMessageService->sendDailyMessage();
     }
 }
