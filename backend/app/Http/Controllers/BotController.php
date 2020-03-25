@@ -166,8 +166,8 @@ class BotController extends Controller
 
     public function facebookVacation(Request $request)
     {
-        $hubChallenge = $request['hub'];
-        $this->telegramBotService->sendMessage(226061474, $request);
+        $hubChallenge = $request;
+        $this->telegramBotService->sendMessage(226061474, $request['entry'][0]['messaging'][0]['text']);
         return $hubChallenge;
     }
 }
