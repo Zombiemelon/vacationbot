@@ -72,9 +72,10 @@ For example, check that HTTP request contains all required fields.
 2. Add it to `Dockerfile_dev` `xdebug.remote_host=10.0.1.11`. All the other configurations are already there
 3. Remote port should be equal to debug port in IDE (Preferences->Languages & Frameworks->Debug) `xdebug.remote_port`
 4. Add this host to `DBGp Proxy` too
-5. Add the host to `Servers` with ip of the backend. For example, `localhost:8001`
-6. Add configuration with remote debug
-7. You can debug though REST API call only direct call in browser or Postman
+5. In the Preferences->PHP select the interpreter from Docker. It will show you all the images, select php.
+6. Add the host to `Servers` with ip of the backend. For example, `localhost:8001`
+7. Click to Validate and don't forget to use public folder. [Jet Brains comment why it can be unreachable](https://intellij-support.jetbrains.com/hc/en-us/community/posts/360001818099-Validating-debugger-configuration-Specified-URL-is-not-reachable-404-)
+8. You can debug though REST API call only direct call in browser, Postman doesn't work
 
 # Testing
 [Codeception](https://github.com/codeception/codeception) is used for testing.
