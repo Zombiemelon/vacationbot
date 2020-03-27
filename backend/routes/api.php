@@ -22,5 +22,5 @@ Route::post('/login', 'Auth\LoginController@login');
 Route::post('/signup', 'Auth\RegisterController@create');
 Route::get('/getVacationImage', 'VacationImageController@getVacationImage');
 Route::get('/setWebhook', 'BotController@setWebhook');
-Route::post('/AAEAoCQbymlnr_6sDs1rCsjQcRxLtbLtWZQ', 'BotController@vacation');
-Route::get('/facebookWebhook', 'BotController@facebookVacation');
+Route::post('/AAEAoCQbymlnr_6sDs1rCsjQcRxLtbLtWZQ', 'BotController@vacation')->name('telegram');;
+Route::post('/facebookWebhook', 'BotController@vacation')->name('facebook');;
