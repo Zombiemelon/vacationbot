@@ -29,7 +29,7 @@ class FacebookBotService implements BotInterface
                         "template_type" => "generic",
                       "elements" => [[
                             "title" => $caption,
-                            "image_url" => "https://scontent.fhel5-1.fna.fbcdn.net/v/t1.0-9/90874955_10159029221871808_6848445054210539520_o.jpg?_nc_cat=108&_nc_sid=2d5d41&_nc_ohc=kZfEb-4JOwYAX8m4Ghk&_nc_ht=scontent.fhel5-1.fna&oh=02ca751aa30b6b02bb3aa3f920fa2bf2&oe=5E9E5238",
+                            "image_url" => $photo,
                       ]]
                     ]
                   ]
