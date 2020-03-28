@@ -27,9 +27,9 @@ class MessageGenerationService
     public function getVacationReplyMessage(string $language) :string
     {
         if ($language == 'ru') {
-            return urlencode("Отлично! Наслаждайся фотографиями каждый день!😀");
+            return "Отлично! Наслаждайся фотографиями каждый день!😀";
         } else {
-            return urlencode("Great! Enjoy the photos every day!😀");
+            return "Great! Enjoy the photos every day!😀";
         }
     }
 
@@ -40,9 +40,9 @@ class MessageGenerationService
     public function getHelpMessage(string $language): string
     {
         if ($language == 'ru') {
-            return urlencode("Посмотри, что я могу делать:\n\n/vacation {Место} {Дата вылета} - выбери место (на английском), куда ты отправишься, и получай фото каждый день до вылета (Например, /vacation Bali 2020-04-17\n\n/trips - проверь, какие места уже у тебя в списке\n\n/stop {Место} {Дата вылета} - останови отправку фото (Например, /stop Bali 2020-04-17)\");");
+            return "Посмотри, что я могу делать:\n\n/vacation {Место} {Дата вылета} - выбери место (на английском), куда ты отправишься, и получай фото каждый день до вылета (Например, /vacation Bali 2020-04-17\n\n/trips - проверь, какие места уже у тебя в списке\n\n/stop {Место} {Дата вылета} - останови отправку фото (Например, /stop Bali 2020-04-17)\");";
         } else {
-            return urlencode("Check what I can do:\n\n/vacation {Destination} {Date of departure} - choose the place where you go and date when you will depart to receive daily photo (For example, /vacation Bali 2020-04-17)\n\n/trips - check what trips you already have\n\n/stop {Destination} {Date of departure} - stop receiving photos (For example, /stop Bali 2020-04-17)");
+            return "Check what I can do:\n\n/vacation {Destination} {Date of departure} - choose the place where you go and date when you will depart to receive daily photo (For example, /vacation Bali 2020-04-17)\n\n/trips - check what trips you already have\n\n/stop {Destination} {Date of departure} - stop receiving photos (For example, /stop Bali 2020-04-17)";
         }
     }
 

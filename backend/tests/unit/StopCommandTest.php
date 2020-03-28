@@ -4,7 +4,9 @@ use App\Services\MessageGenerationService;
 use App\Services\PhotoDownloadService;
 use App\Services\TelegramBotService;
 use App\Http\Controllers\BotController;
+use App\Services\MatchServices\BotMatchService;
 use App\Vacation;
+use Codeception\Stub;
 use Illuminate\Http\Request;
 use App\ChatStatus;
 
@@ -48,7 +50,7 @@ class StopCommandTest extends \Codeception\Test\Unit
         $telegramBotService->expects(self::once())
                             ->method('replyToQuery')
                             ->with($message, 111);
-        $botController = $this->generateBotController($telegramBotService);
+        $botController = $this->tester->generateBotController($telegramBotService);
         $request = $this->generateQueryRequest($command);
         $botController->vacation($request);
         $this->tester->seeRecord('chats',
@@ -91,7 +93,7 @@ class StopCommandTest extends \Codeception\Test\Unit
         $telegramBotService->expects(self::once())
                             ->method('sendMessage')
                             ->with(666, $message, $keyboard);
-        $botController = $this->generateBotController($telegramBotService);
+        $botController = $this->tester->generateBotController($telegramBotService);
         $request = $this->generateRequest($command);
         $botController->vacation($request);
         $this->tester->canSeeRecord("chats", ["telegram_chat_id" => 666, "chat_status_id" => ChatStatus::STOP]);
@@ -115,7 +117,7 @@ class StopCommandTest extends \Codeception\Test\Unit
         $telegramBotService->expects(self::once())
             ->method('sendMessage')
             ->with(666, $message, $keyboard);
-        $botController = $this->generateBotController($telegramBotService);
+        $botController = $this->tester->generateBotController($telegramBotService);
         $request = $this->generateRequest($command);
         $botController->vacation($request);
         $this->tester->canSeeRecord("chats", ["telegram_chat_id" => 666, "chat_status_id" => ChatStatus::STOP]);
@@ -150,19 +152,6 @@ class StopCommandTest extends \Codeception\Test\Unit
             ['id' => 200, 'chat_id' => 666, 'destination' => $this->destinationTwo, 'vacation_date' => $this->dateTwo]);
         $this->tester->haveRecord('chats',
             ['id' => 300, "telegram_chat_id" => 666, "chat_status_id" => ChatStatus::STOP]);
-    }
-
-    /**
-     * @param $sendMessageService
-     * @return BotController
-     */
-    private function generateBotController($sendMessageService) :BotController
-    {
-        $vacation = new Vacation();
-        $photoDownloadService = new PhotoDownloadService();
-        $messageGenerationService = new MessageGenerationService ();
-        $botController = new BotController($sendMessageService, $vacation, $photoDownloadService, $messageGenerationService);
-        return $botController;
     }
 
     /**

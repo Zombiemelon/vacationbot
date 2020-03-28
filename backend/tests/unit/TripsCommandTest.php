@@ -4,7 +4,9 @@ use App\Services\MessageGenerationService;
 use App\Services\PhotoDownloadService;
 use App\Services\TelegramBotService;
 use App\Http\Controllers\BotController;
+use App\Services\MatchServices\BotMatchService;
 use App\Vacation;
+use Codeception\Stub;
 use Codeception\Stub\Expected;
 use Illuminate\Http\Request;
 
@@ -30,21 +32,21 @@ class TripsCommandTest extends \Codeception\Test\Unit
     public function testStopMessage()
     {
         $this->generateDbRecords();
-        $sendMessageService = $this->getMockBuilder(TelegramBotService::class)
+        $telegramBotService = $this->getMockBuilder(TelegramBotService::class)
                                 ->setMethods(['sendMessage'])
                                 ->getMock();
         //expects that number of messages equals number of vacations
-        $sendMessageService->expects(self::exactly(2))
+        $telegramBotService->expects(self::exactly(2))
             ->method('sendMessage');
         //expects the correct message to injected to sendMessage method on the first vacation
-        $sendMessageService->expects(self::at(0))
+        $telegramBotService->expects(self::at(0))
                             ->method('sendMessage')
                             ->with(666, "$this->destinationOne $this->dateOne");
         //expects the correct message to injected to sendMessage method on the second vacation
-        $sendMessageService->expects(self::at(1))
+        $telegramBotService->expects(self::at(1))
             ->method('sendMessage')
             ->with(666, "$this->destinationTwo $this->dateTwo");
-        $botController = $this->generateBotController($sendMessageService);
+        $botController = $this->generateBotController($telegramBotService);
         $request = $this->generateRequest();
         $botController->vacation($request);
     }
@@ -58,15 +60,17 @@ class TripsCommandTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @param $sendMessageService
+     * @param $telegramBotService
      * @return BotController
+     * @throws Exception
      */
-    private function generateBotController($sendMessageService) :BotController
+    private function generateBotController($telegramBotService) :BotController
     {
         $vacation = new Vacation();
         $photoDownloadService = new PhotoDownloadService();
         $messageGenerationService = new MessageGenerationService ();
-        $botController = new BotController($sendMessageService, $vacation, $photoDownloadService, $messageGenerationService);
+        $botMatchService = Stub::make(new BotMatchService, ['getRouteName' => 'telegram', 'getBot' => $telegramBotService]);
+        $botController = new BotController($vacation, $photoDownloadService, $messageGenerationService, $botMatchService);
         return $botController;
     }
 

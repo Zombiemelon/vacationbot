@@ -16,7 +16,7 @@ class GetTextTest extends Unit
     {
     }
 
-    //Tests the full text message
+    //tests the full text message
     public function testGetFullText()
     {
         $telegramBotService = new TelegramBotService();
@@ -25,13 +25,21 @@ class GetTextTest extends Unit
         $this->assertEquals("Test text", $text);
     }
 
-    //Tests the empty text message
+    //tests the empty text message
     public function testGetEmptyText()
     {
         $telegramBotService = new TelegramBotService();
         $request = $this->generateRequestEmptyText();
         $text = $telegramBotService->getText($request);
         $this->assertEquals("", $text);
+    }
+
+    public function testFacebookText()
+    {
+//        $telegramBotService = new TelegramBotService();
+//        $request = $this->generateFacebookRequest();
+//        $text = $telegramBotService->getText($request);
+//        $this->assertEquals("", $text);
     }
 
     /**
@@ -64,6 +72,9 @@ class GetTextTest extends Unit
         return $request;
     }
 
+    /**
+     * @return Request
+     */
     private function generateRequestEmptyText() :Request
     {
         $request = new Request();
@@ -86,6 +97,36 @@ class GetTextTest extends Unit
             "date" => 1584516119,
             "edit_date" => 1584516131,
         ];
+
+        return $request;
+    }
+
+    private function generateFacebookRequest(): Request
+    {
+        $request = new Request();
+        $request = json_decode('[
+            {
+              "id": "104930794484894",
+              "time": 1585081451957,
+              "messaging": [
+                {
+                  "sender": {
+                    "id": "3431758906850992"
+                  },
+                  "recipient": {
+                    "id": "104930794484894"
+                  },
+                  "timestamp": 1585081451544,
+                  "message": {
+                    "mid": "m_kH362kEC9wFlbIMMdfeaCXIughvl7n8-Fv2d-1NAjbpdobKNpRvKz8uYCzR_YeHdJMtuXZejUi9vBXMwVOBxzQ",
+                    "text": "k"
+                  }
+                }
+              ]
+            }
+          ]');
+
+        $request['entry'] = $request;
 
         return $request;
     }

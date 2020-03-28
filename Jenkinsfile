@@ -6,6 +6,7 @@ pipeline {
         ECR_ADDRESS=credentials('aws_sd_ecr_address')
         CONTAINER_NAME_FRONT='vacation_bot_front'
         CONTAINER_NAME_BACK='vacation_bot_back'
+        FACEBOOK_BOT_API_TOKEN='facebook_bot_api_token'
         HOST_BACK_PORT=8443
         CONTAINER_BACK_PORT=443
         HOST_FRONT_PORT=3005

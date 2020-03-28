@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class StartCommandTest extends Unit
 {
+    /**
+     * @var UnitTester
+     */
+    protected $tester;
 
     protected function _before()
     {
@@ -22,29 +26,16 @@ class StartCommandTest extends Unit
     public function testStartCommand()
     {
         $message = urlencode("Hi👋\nI will send photo of your vacation destination every day until the flight at 9am!\nJust write /vacation.");
-        $sendMessageService = $this->getMockBuilder(TelegramBotService::class)
+        $teleramBotService = $this->getMockBuilder(TelegramBotService::class)
             ->setMethods(['sendMessage'])
             ->getMock();
         //expects the correct message to injected to sendMessage method on the first vacation
-        $sendMessageService->expects(self::once())
+        $teleramBotService->expects(self::once())
             ->method('sendMessage')
             ->with(666, $message);
-        $botController = $this->generateBotController($sendMessageService);
+        $botController = $this->tester->generateBotController($teleramBotService);
         $request = $this->generateRequest();
         $botController->vacation($request);
-    }
-
-    /**
-     * @param $sendMessageService
-     * @return BotController
-     */
-    private function generateBotController($sendMessageService) :BotController
-    {
-        $vacation = new Vacation();
-        $photoDownloadService = new PhotoDownloadService();
-        $messageGenerationService = new MessageGenerationService ();
-        $botController = new BotController($sendMessageService, $vacation, $photoDownloadService, $messageGenerationService);
-        return $botController;
     }
 
     /**

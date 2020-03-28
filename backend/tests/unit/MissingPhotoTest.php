@@ -4,6 +4,7 @@ use App\Services\MessageGenerationService;
 use App\Services\PhotoDownloadService;
 use App\Services\TelegramBotService;
 use App\Http\Controllers\BotController;
+use App\Services\MatchServices\BotMatchService;
 use App\Vacation;
 use Codeception\Stub\Expected;
 use Codeception\Util\Stub;
@@ -29,14 +30,14 @@ class MissingPhotoTest extends \Codeception\Test\Unit
     {
         $this->generateDbRecords();
         $message = 'No such place😢 Try another place. For example, Moscow';
-        $sendMessageService = $this->getMockBuilder(TelegramBotService::class)
+        $telegramBotService = $this->getMockBuilder(TelegramBotService::class)
                             ->setMethods(['sendMessage'])
                             ->getMock();
         //expects the correct message to injected to sendMessage method
-        $sendMessageService->expects(self::once())
+        $telegramBotService->expects(self::once())
                             ->method('sendMessage')
                             ->with(666, $message);
-        $botController = $this->generateBotController($sendMessageService);
+        $botController = $this->generateBotController($telegramBotService);
         $request = $this->generateRequest();
         $botController->vacation($request);
     }
@@ -47,16 +48,17 @@ class MissingPhotoTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @param $sendMessageService
+     * @param $telegramBotService
      * @return BotController
      * @throws Exception
      */
-    private function generateBotController($sendMessageService) :BotController
+    private function generateBotController($telegramBotService) :BotController
     {
         $vacation = new Vacation();
         $photoDownloadService = Stub::make(PhotoDownloadService::class, ['getPhotoByDestination' => function () { throw new Exception("[\"No photos found.\"]");}]);
         $messageGenerationService = new MessageGenerationService ();
-        $botController = new BotController($sendMessageService, $vacation, $photoDownloadService, $messageGenerationService);
+        $botMatchService = Stub::make(new BotMatchService, ['getRouteName' => 'telegram', 'getBot' => $telegramBotService]);
+        $botController = new BotController($vacation, $photoDownloadService, $messageGenerationService, $botMatchService);
         return $botController;
     }
 

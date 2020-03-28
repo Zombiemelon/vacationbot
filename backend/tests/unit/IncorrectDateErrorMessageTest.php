@@ -41,7 +41,7 @@ class IncorrectDateErrorMessageTest extends \Codeception\Test\Unit
         $sendMessageService->expects(self::once())
                             ->method('sendMessage')
                             ->with(666, $message);
-        $botController = $this->generateBotController($sendMessageService);
+        $botController = $this->tester->generateBotController($sendMessageService);
         $request = $this->generateRequest();
         $botController->vacation($request);
     }
@@ -53,19 +53,6 @@ class IncorrectDateErrorMessageTest extends \Codeception\Test\Unit
     {
         $this->tester->haveRecord('chats', ['telegram_chat_id' => 666, 'chat_status_id' => $status]);
         $this->tester->haveRecord('vacations', ['chat_id' => 666, 'destination' => 'Bali', 'vacation_date' => '2020-06-01']);
-    }
-
-    /**
-     * @param $sendMessageService
-     * @return BotController
-     */
-    private function generateBotController($sendMessageService) :BotController
-    {
-        $vacation = new Vacation();
-        $photoDownloadService = new PhotoDownloadService();
-        $messageGenerationService = new MessageGenerationService ();
-        $botController = new BotController($sendMessageService, $vacation, $photoDownloadService, $messageGenerationService);
-        return $botController;
     }
 
     /**

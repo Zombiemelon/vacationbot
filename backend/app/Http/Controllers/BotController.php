@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Chat;
 use App\ChatStatus;
+use App\Services\MatchServices\BotMatchService;
 use App\Services\MessageGenerationService;
 use App\Services\PhotoDownloadService;
-use App\Services\TelegramBotService;
 use App\Vacation;
 use Exception;
 
@@ -22,20 +22,21 @@ class BotController extends Controller
     private $vacation;
     private $photoDownloadService;
     private $messageGenerationService;
+    private $botMatchService;
 
-    public function __construct(TelegramBotService $telegramBotService,
-                                Vacation $vacation,
-                                PhotoDownloadService $photoDownloadService,
-                                MessageGenerationService $messageGenerationService)
+    public function __construct(Vacation $vacation, PhotoDownloadService $photoDownloadService, MessageGenerationService $messageGenerationService, BotMatchService $botMatchService
+    )
     {
-        $this->telegramBotService = $telegramBotService;
         $this->vacation = $vacation;
         $this->photoDownloadService = $photoDownloadService;
         $this->messageGenerationService = $messageGenerationService;
+        $this->botMatchService = $botMatchService;
     }
 
     public function vacation(Request $request)
     {
+        $route = $this->botMatchService->getRouteName($request);
+        $this->telegramBotService = $this->botMatchService->getBot($route);
         try {
             $text = $this->telegramBotService->getText($request);
             $splitText = explode(' ',$text);
@@ -69,11 +70,13 @@ class BotController extends Controller
                     $destination = $vacation->destination;
                     $vacation->save();
                     $chat->updateState(ChatStatus::COMPLETED);
-                    $message = $this->messageGenerationService->getEnjoyPhotoMessage($language);
+
                     $photoRaw = $this->photoDownloadService->getPhotoByDestination($destination);
                     $photo = $this->photoDownloadService->getPhotoUrl($photoRaw);
-                    $message .= urlencode($this->photoDownloadService->getUnsplashLegalText($photoRaw));
-                    $this->telegramBotService->sendPhoto($chat_id, $photo,$message);
+                    $firstLine = $this->messageGenerationService->getEnjoyPhotoMessage($language);
+                    $secondLine = urlencode($this->photoDownloadService->getUnsplashLegalText($photoRaw));
+                    $message = $this->telegramBotService->getPhotoCaption($firstLine, $secondLine);
+                    $this->telegramBotService->sendPhoto($chat_id, $photo, $message);
                     return response("Now you can enjoy the photos every day", 200);
                 } catch (Exception $exception) {
                     $message = $this->messageGenerationService->getIncorrectDateMessage($language);
@@ -103,7 +106,7 @@ class BotController extends Controller
                 $vacation->save();
                 $message = $this->messageGenerationService->getVacationReplyMessage($language);
                 $photo = $this->photoDownloadService->getPhotoUrl($this->photoDownloadService->getPhotoByDestination($destination));
-                return $this->telegramBotService->sendPhoto($chat_id, $photo,$message);
+                return $this->telegramBotService->sendPhoto($chat_id, $photo, $message);
             } elseif ($command == "/trips") {
                 $vacations = $this->vacation->getAllVacationsByChatId($chat_id);
                 foreach ($vacations as $vacation) {
@@ -167,7 +170,7 @@ class BotController extends Controller
     public function facebookVacation(Request $request)
     {
         $hubChallenge = $request;
-        $this->telegramBotService->sendMessage(226061474, $request['entry'][0]['messaging'][0]['text']);
+        $this->telegramBotService->sendMessage(226061474, $request['entry'][0]['messaging'][0]['message']['text']);
         return $hubChallenge;
     }
 }

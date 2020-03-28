@@ -3,24 +3,27 @@
 
 namespace App\Services;
 
+use App\Interfaces\BotInterface;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Exception;
 
-class TelegramBotService
+class TelegramBotService implements BotInterface
 {
     public function sendPhoto(string $chat_id, string $photo, string $caption = '')
     {
         $api_url = env('BOT_API');
+        $caption = urlencode($caption);
         $url = "$api_url/sendPhoto?chat_id=$chat_id&parse_mode=HTML&photo=$photo&caption=$caption";
         $client = new Client();
         $response = $client->request('GET',$url);
         return $response->getStatusCode();
     }
 
-    public function sendMessage(string $chat_id, $message = '', string $keyboard = 'missing')
+    public function sendMessage(string $chat_id, string $message = '', string $keyboard = 'missing'): int
     {
         $api_url = env('BOT_API');
+        $message=urlencode($message);
         $url = "$api_url/sendMessage?chat_id=$chat_id&parse_mode=HTML&text=$message";
         $keyboard == 'missing' ? '' : $url.= "&reply_markup=$keyboard";
         $client = new Client();
@@ -105,5 +108,15 @@ class TelegramBotService
         $client = new Client();
         $response = $client->request('GET',$url);
         return $response->getStatusCode();
+    }
+
+    /**
+     * @param string $firstLine
+     * @param string $secondLine
+     * @return string
+     */
+    public function getPhotoCaption(string $firstLine, string $secondLine): string
+    {
+        return $firstLine.$secondLine;
     }
 }

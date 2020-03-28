@@ -78,7 +78,6 @@ class CreateVacationCest
     }
 
     // test that vacation is created if it doesn"t exist yet and it has destination & date
-
     /**
      * @dataProvider dataProvider
      * @param ApiTester $I
