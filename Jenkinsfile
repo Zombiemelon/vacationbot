@@ -6,7 +6,6 @@ pipeline {
         ECR_ADDRESS=credentials('aws_sd_ecr_address')
         CONTAINER_NAME_FRONT='vacation_bot_front'
         CONTAINER_NAME_BACK='vacation_bot_back'
-        FACEBOOK_BOT_API_TOKEN='facebook_bot_api_token'
         HOST_BACK_PORT=8443
         CONTAINER_BACK_PORT=443
         HOST_FRONT_PORT=3005
@@ -40,6 +39,7 @@ pipeline {
             // Setting environment variables
             environment {
                 BOT_API=credentials("f7621b77-836e-4699-9442-b5a2456eb555")
+                FACEBOOK_BOT_API_TOKEN=credentials('facebook_bot_api_token')
                 DB_HOST=credentials('vacation_bot_db_host')
                 DB_DATABASE=credentials('vacation_bot_db_database')
                 DB_USERNAME=credentials('vacation_bot_db_username')

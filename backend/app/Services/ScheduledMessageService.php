@@ -35,7 +35,7 @@ class ScheduledMessageService
             }
             $photo = $photoDownloadService->getPhotoUrl($photoRaw);
             $caption = $this->commentService->getComment($vacation->destination, $vacation->vacation_date);
-            $caption .= urlencode($photoDownloadService->getUnsplashLegalText($photoRaw));
+            $caption .= $photoDownloadService->getUnsplashLegalText($photoRaw);
             $chat_id = $vacation->chat_id;
             try {
                 $this->telegramBotService->sendPhoto($chat_id, $photo, $caption);
