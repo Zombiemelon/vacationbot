@@ -133,7 +133,7 @@ class BotController extends Controller
                 if(!$vacation) {
                     $vacations = $this->vacation->getAllVacationsByChatId($chat_id);
                     $buttons = $this->telegramBotService->getStopButtonsByVacationsList($vacations);
-                    $keyboard = $this->telegramBotService->getInlineButtons($buttons);
+                    $keyboard = $this->telegramBotService->getInlineButtons($buttons) ?? '';
                     $message = $this->messageGenerationService->getStopMessage();
                     return $this->telegramBotService->sendMessage($chat_id, $message, $keyboard);
                 }
