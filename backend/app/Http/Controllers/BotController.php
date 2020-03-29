@@ -74,7 +74,7 @@ class BotController extends Controller
                     $photoRaw = $this->photoDownloadService->getPhotoByDestination($destination);
                     $photo = $this->photoDownloadService->getPhotoUrl($photoRaw);
                     $firstLine = $this->messageGenerationService->getEnjoyPhotoMessage($language);
-                    $secondLine = urlencode($this->photoDownloadService->getUnsplashLegalText($photoRaw));
+                    $secondLine = $this->photoDownloadService->getUnsplashLegalText($photoRaw);
                     $message = $this->telegramBotService->getPhotoCaption($firstLine, $secondLine);
                     $this->telegramBotService->sendPhoto($chat_id, $photo, $message);
                     return response("Now you can enjoy the photos every day", 200);
