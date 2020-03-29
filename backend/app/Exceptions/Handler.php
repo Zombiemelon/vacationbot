@@ -37,7 +37,7 @@ class Handler extends ExceptionHandler
     public function report(Exception $exception)
     {
         $telegramBotService = new TelegramBotService();
-        $telegramBotService->sendMessage(226061474, $exception);
+        $telegramBotService->sendMessage(226061474, substr($exception, 0, 50));
         Log::error($exception);
         parent::report($exception);
     }

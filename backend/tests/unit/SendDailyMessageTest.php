@@ -32,8 +32,10 @@ class SendDailyMessageTest extends Unit
         $telegramBotService->expects(self::exactly(2))
                             ->method('sendPhoto')
                             ->withConsecutive(
-                                [666, 'url', 'Comment%0APhoto+by+%3Ca+href%3D%22url%22%3Ename%3C%2Fa%3E+on+%3Ca+href%3D%22localhost%3A8003%2F%3Futm_source%3Dvacation_bot%26utm_medium%3Dreferral%22%3EUnsplash%3C%2Fa%3E'],
-                                [666, 'url', 'Comment%0APhoto+by+%3Ca+href%3D%22url%22%3Ename%3C%2Fa%3E+on+%3Ca+href%3D%22localhost%3A8003%2F%3Futm_source%3Dvacation_bot%26utm_medium%3Dreferral%22%3EUnsplash%3C%2Fa%3E']);
+                                [666, 'url', 'Comment
+Photo by <a href="url">name</a> on <a href="localhost:8003/?utm_source=vacation_bot&utm_medium=referral">Unsplash</a>'],
+                                [666, 'url', 'Comment
+Photo by <a href="url">name</a> on <a href="localhost:8003/?utm_source=vacation_bot&utm_medium=referral">Unsplash</a>']);
         $commentService = Stub::make(CommentService::class, ['getComment' => function () { return 'Comment'; }]);
         $photoDownloadService = new PhotoDownloadService();
         $scheduledMessage = new ScheduledMessageService($commentService, $telegramBotService, $photoDownloadService);
