@@ -3,6 +3,7 @@
 
 namespace App\Services;
 use Crew\Unsplash;
+use stdClass;
 
 class PhotoDownloadService
 {
@@ -10,7 +11,7 @@ class PhotoDownloadService
     public function getPhotoByDestination(string $destination)
     {
         if(env('APP_ENV') == 'dev') {
-            $photo = new \stdClass();
+            $photo = new stdClass();
             $photo->links['html'] = "url";
             $photo->user['links']['html'] = "url";
             $photo->user['name'] = "name";
@@ -35,7 +36,7 @@ class PhotoDownloadService
 
     public function getPhotoUrl($photo)
     {
-        return $photo->links['html'];
+        return $photo->urls['regular'];
     }
 
     public function getPhotographerUrl($photo)
