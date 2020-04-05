@@ -115,8 +115,8 @@ class CreateVacationCest
     protected function dataProvider() // alternatively, if you want the function to be public, be sure to prefix it with `_`
     {
         return [
+            ['date'=>"Test", 'status'=>\App\Http\Controllers\BotController::SELECT_DATE, 'vacationDate'=>'2020-01-01', 'response'=>"Please select the date in format 2020-04-06!📅"],
             ['date'=>"2020-06-01", 'status'=>\App\Http\Controllers\BotController::COMPLETED, 'vacationDate'=>'2020-06-01', 'response'=>"Now you can enjoy the photos every day"],
-            ['date'=>"Test", 'status'=>\App\Http\Controllers\BotController::SELECT_DATE, 'vacationDate'=>'2020-01-01', 'response'=>"Please select the date in format 2020-04-06!📅"]
         ];
     }
 }
