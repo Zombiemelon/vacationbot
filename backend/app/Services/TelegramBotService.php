@@ -14,6 +14,7 @@ class TelegramBotService implements BotInterface
     {
         $api_url = env('BOT_API');
         $caption = urlencode($caption);
+        $photo = urlencode($photo);
         $url = "$api_url/sendPhoto?chat_id=$chat_id&parse_mode=HTML&photo=$photo&caption=$caption";
         $client = new Client();
         $response = $client->request('GET',$url);
