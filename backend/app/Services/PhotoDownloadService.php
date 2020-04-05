@@ -13,7 +13,7 @@ class PhotoDownloadService
         if(env('APP_ENV') == 'dev') {
             $photo = new stdClass();
             $photo->links['html'] = "url";
-            $photo->urls['regular'] = "regular";
+            $photo->urls['regular'] = "url";
             $photo->user['links']['html'] = "url";
             $photo->user['name'] = "name";
             return $photo;
