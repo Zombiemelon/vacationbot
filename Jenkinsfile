@@ -10,7 +10,7 @@ pipeline {
         CONTAINER_BACK_PORT=443
         HOST_FRONT_PORT=3005
         CONTAINER_FRONT_PORT=443
-        AWS_PROFILE='aws_sd'
+        AWS_PROFILE='default'
         CONFIG='aws_sd'
     }
     stages {
