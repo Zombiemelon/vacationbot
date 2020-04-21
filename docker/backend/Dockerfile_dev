@@ -9,7 +9,17 @@ RUN pecl install xdebug \
         && echo "xdebug.idekey=PHPSTORM" >> /usr/local/etc/php/conf.d/xdebug.ini \
         && echo "xdebug.remote_host=10.0.1.11" >> /usr/local/etc/php/conf.d/xdebug.ini
 RUN apt-get update; \
-    apt-get install -y libpng-dev procps; \
+    apt-get install -y wget \
+    gnupg \
+    apt-utils \
+    libpng-dev \
+    supervisor \
+    systemd; \
+    wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -; \
+    apt-get install apt-transport-https; \
+    echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list; \
+    apt-get update && apt-get install filebeat; \
+    systemctl enable filebeat; \
     docker-php-ext-install gd \
     pdo \
     pdo_mysql \
