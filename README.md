@@ -164,6 +164,11 @@ c. Delete image
 5. Copy the data to `challengepro_ru.crt`
 6. If required generate CSR with key at [https://my.gogetssl.com/](https://my.gogetssl.com/). Cope the CSR and the key to `challengepro_ru.key`
 
+#Install Logstash
+1. `apt-get update; 
+apt-get install -y curl; 
+curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.2-linux-x86_64.tar.gz;
+tar xzvf filebeat-7.6.2-linux-x86_64.tar.gz`
 # TODO
 1. Remove `db_volume` from the repository and find a way to set up test db in another way
 2. Rewrite with state pattern `getText(Request $request): string`
