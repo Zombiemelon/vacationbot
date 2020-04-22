@@ -33,6 +33,7 @@ COPY ./docker/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./docker/nginx/challengepro_ru.crt /root/challengepro_ru.crt
 COPY ./docker/nginx/challengepro_ru.key /root/challengepro_ru.key
 COPY ./docker/php/crontab /etc/crontab
+COPY ./docker/filebeat/filebeat.yml:/etc/filebeat/filebeat.yml
 
 RUN chown -R :www-data /home/backend/storage/logs/; \
     chown -R :www-data /home/backend/storage/; \
