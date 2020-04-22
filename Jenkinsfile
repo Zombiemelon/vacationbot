@@ -10,7 +10,7 @@ pipeline {
         CONTAINER_BACK_PORT=443
         HOST_FRONT_PORT=3005
         CONTAINER_FRONT_PORT=443
-        AWS_PROFILE='default'
+        AWS_PROFILE='aws_sd'
         CONFIG='aws_sd'
     }
     stages {
@@ -79,7 +79,7 @@ pipeline {
             steps {
                 script {
                     if (env.GIT_BRANCH == 'origin/master') {
-                        sshPublisher(publishers: [sshPublisherDesc(configName: env.CONFIG, transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "\$(aws ecr get-login --no-include-email --region eu-central-1 --profile $AWS_PROFILE); docker pull ${ECR_ADDRESS}:back; docker rm -f ${CONTAINER_NAME_BACK} ; docker run --name ${CONTAINER_NAME_BACK} -d -p ${HOST_BACK_PORT}:${CONTAINER_BACK_PORT} ${ECR_ADDRESS}:back", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                        sshPublisher(publishers: [sshPublisherDesc(configName: env.CONFIG, transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: "\$(aws ecr get-login --no-include-email --region eu-central-1 --profile); docker pull ${ECR_ADDRESS}:back; docker rm -f ${CONTAINER_NAME_BACK} ; docker run --name ${CONTAINER_NAME_BACK} -d -p ${HOST_BACK_PORT}:${CONTAINER_BACK_PORT} ${ECR_ADDRESS}:back", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                     }
                 }
             }
