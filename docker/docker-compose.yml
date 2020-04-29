@@ -23,27 +23,26 @@ services:
       - ./backend/supervisord.conf:/etc/supervisor/supervisord.conf
     working_dir: ${APP_PATH_CONTAINER_BACK}
 
-#  db:
-#    image: mysql:5.7
-#    environment:
-#      MYSQL_ROOT_PASSWORD: test_password
-#      MYSQL_DATABASE: database
-#      MYSQL_USER: user
-#      MYSQL_PASSWORD: devpass
-#    volumes:
-#      - ../db_volume:/var/lib/mysql
-#    ports:
-#      - ${DB_PORT_HOST}:${DB_PORT_CONTAINER}
-#    depends_on:
-#      - php
-#      - kibana
-#
-#  composer:
-#    image: composer:1.7.2
-#    volumes:
-#          - ${APP_PATH_HOST_BACK}:${APP_PATH_CONTAINER_BACK}
-#    working_dir: ${APP_PATH_CONTAINER_BACK}
-#    command: composer update --ignore-platform-reqs --no-scripts
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: test_password
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: devpass
+    volumes:
+      - ../db_volume:/var/lib/mysql
+    ports:
+      - ${DB_PORT_HOST}:${DB_PORT_CONTAINER}
+    depends_on:
+      - php
+
+  composer:
+    image: composer:1.7.2
+    volumes:
+          - ${APP_PATH_HOST_BACK}:${APP_PATH_CONTAINER_BACK}
+    working_dir: ${APP_PATH_CONTAINER_BACK}
+    command: composer update --ignore-platform-reqs --no-scripts
 
 #  elasticsearch:
 #    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
@@ -54,15 +53,15 @@ services:
 #      - xpack.security.enabled=false
 #      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
-  logstash:
-    build:
-      context: ${LOGSTASH_FOLDER}
-      dockerfile: Dockerfile
-    image: logstash:latest
+#  logstash:
+#    build:
+#      context: ${LOGSTASH_FOLDER}
+#      dockerfile: Dockerfile
+#    image: logstash:latest
 #    depends_on:
 #      - elasticsearch
-    ports:
-      - 5044:5044/udp
+#    ports:
+#      - 5044:5044/udp
 #    volumes:
 #      - ./logstash/pipeline.conf:/usr/share/logstash/pipeline/logstash.conf
 #      - ./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml

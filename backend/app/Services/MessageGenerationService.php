@@ -8,11 +8,7 @@ class MessageGenerationService
 {
     public function getIncorrectDateMessage($language): string
     {
-        if ($language == 'ru') {
-            return "Пожалуйста выбери дату в формате 2020-04-06!📅";
-        } else {
-            return "Please select the date in format 2020-04-06!📅";
-        }
+        return "Please select the date in format 2020-04-06!📅";
     }
 
     public function getIncorrectDestinationMessage(Exception $exception): string
@@ -26,11 +22,7 @@ class MessageGenerationService
 
     public function getVacationReplyMessage(string $language) :string
     {
-        if ($language == 'ru') {
-            return "Отлично! Наслаждайся фотографиями каждый день!😀";
-        } else {
-            return "Great! Enjoy the photos every day!😀";
-        }
+        return "Great! Enjoy the photos every day!😀";
     }
 
     /**
@@ -39,11 +31,7 @@ class MessageGenerationService
      */
     public function getHelpMessage(string $language): string
     {
-        if ($language == 'ru') {
-            return "Посмотри, что я могу делать:\n\n/vacation {Место} {Дата вылета} - выбери место (на английском), куда ты отправишься, и получай фото каждый день до вылета (Например, /vacation Bali 2020-04-17\n\n/trips - проверь, какие места уже у тебя в списке\n\n/stop {Место} {Дата вылета} - останови отправку фото (Например, /stop Bali 2020-04-17)\");";
-        } else {
-            return "Check what I can do:\n\n/vacation {Destination} {Date of departure} - choose the place where you go and date when you will depart to receive daily photo (For example, /vacation Bali 2020-04-17)\n\n/trips - check what trips you already have\n\n/stop {Destination} {Date of departure} - stop receiving photos (For example, /stop Bali 2020-04-17)";
-        }
+        return "Check what I can do:\n\n/vacation {Destination} {Date of departure} - choose the place where you go and date when you will depart to receive daily photo (For example, /vacation Bali 2020-04-17)\n\n/trips - check what trips you already have\n\n/stop {Destination} {Date of departure} - stop receiving photos (For example, /stop Bali 2020-04-17)";
     }
 
     /**
@@ -78,11 +66,7 @@ class MessageGenerationService
      */
     public function getVacationExistsMessage(string $language): string
     {
-        if ($language == 'ru') {
-            return "Ты уже получаешь такие фото 👯‍♂️";
-        } else {
-            return "Vacation already exists 👯‍♂️";
-        }
+        return "Vacation already exists 👯‍♂️";
     }
 
     /**
@@ -91,11 +75,7 @@ class MessageGenerationService
      */
     public function getDontUnderstandMessage(string $language): string
     {
-        if ($language == 'ru') {
-            return "Я тебя не понимаю🤷‍♂️ Попробуй /vacation, чтобы выбрать куда полетишь.";
-        } else {
-            return "I don't understand you🤷‍♂️ Try /vacation to choose your destination.";
-        }
+        return "I don't understand you🤷‍♂️ Try /vacation to choose your destination.";
     }
 
     /**
@@ -104,19 +84,12 @@ class MessageGenerationService
      */
     public function getSelectDateMessage(string $language): string
     {
-        if($language == 'ru') {
-            return "Отлично! Теперь выбери дату в формате 2020-04-06!📅";
-        }
         return "Great! Now select the date in format 2020-04-06!📅";
     }
 
     public function getGreetingMessage(string $language) :string
     {
-        if ($language == 'ru') {
-            return urlencode("Привет👋\nЯ буду отправлять тебе фото с места твоего отпуска ежедневно до даты вылета в 9 утра!\nПросто напиши /vacation.");
-        } else {
             return urlencode("Hi👋\nI will send photo of your vacation destination every day until the flight at 9am!\nJust write /vacation.");
-        }
     }
 
     public function getNotSentMessage(): string
