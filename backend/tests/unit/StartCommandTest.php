@@ -25,7 +25,7 @@ class StartCommandTest extends Unit
 
     public function testStartCommand()
     {
-        $message = urlencode("Hi👋\nI will send photo of your vacation destination every day until the flight at 9am!\nJust write /vacation.");
+        $message = "Hi👋\nI will send photo of your vacation destination every day until the flight at 9am!\nJust write /vacation.";
         $teleramBotService = $this->getMockBuilder(TelegramBotService::class)
             ->setMethods(['sendMessage'])
             ->getMock();

@@ -89,7 +89,7 @@ class MessageGenerationService
 
     public function getGreetingMessage(string $language) :string
     {
-            return urlencode("Hi👋\nI will send photo of your vacation destination every day until the flight at 9am!\nJust write /vacation.");
+            return "Hi👋\nI will send photo of your vacation destination every day until the flight at 9am!\nJust write /vacation.";
     }
 
     public function getNotSentMessage(): string
