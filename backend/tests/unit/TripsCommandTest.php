@@ -54,9 +54,9 @@ class TripsCommandTest extends \Codeception\Test\Unit
     private function generateDbRecords() :void
     {
         $this->tester->haveRecord('vacations',
-            ['chat_id' => 666, 'destination' => $this->destinationOne, 'vacation_date' => $this->dateOne]);
+            ['chat_id' => 666, 'destination' => $this->destinationOne, 'vacation_date' => $this->dateOne, 'status' => 1]);
         $this->tester->haveRecord('vacations',
-            ['chat_id' => 666, 'destination' => $this->destinationTwo, 'vacation_date' => $this->dateTwo]);
+            ['chat_id' => 666, 'destination' => $this->destinationTwo, 'vacation_date' => $this->dateTwo, 'status' => 1]);
     }
 
     /**

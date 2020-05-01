@@ -45,8 +45,10 @@ Photo by <a href="url">name</a> on <a href="localhost:8003/?utm_source=vacation_
     private function generateDbRecords(): void
     {
         $this->tester->haveRecord('vacations',
-            ['chat_id' => 666, 'destination' => 'Test', 'vacation_date' => '2020-06-01']);
+            ['chat_id' => 666, 'destination' => 'Test', 'vacation_date' => '2020-06-01', 'status' => 1]);
         $this->tester->haveRecord('vacations',
-            ['chat_id' => 666, 'destination' => 'Argentina', 'vacation_date' => '2020-06-01']);
+            ['chat_id' => 666, 'destination' => 'Argentina', 'vacation_date' => '2020-06-01', 'status' => 1]);
+        $this->tester->haveRecord('vacations',
+            ['chat_id' => 666, 'destination' => 'Minsk', 'vacation_date' => '2020-06-01', 'status' => 2]);
     }
 }

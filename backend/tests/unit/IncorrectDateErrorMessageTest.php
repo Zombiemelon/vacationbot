@@ -52,7 +52,7 @@ class IncorrectDateErrorMessageTest extends \Codeception\Test\Unit
     private function generateDbRecords($status) :void
     {
         $this->tester->haveRecord('chats', ['telegram_chat_id' => 666, 'chat_status_id' => $status]);
-        $this->tester->haveRecord('vacations', ['chat_id' => 666, 'destination' => 'Bali', 'vacation_date' => '2020-06-01']);
+        $this->tester->haveRecord('vacations', ['chat_id' => 666, 'destination' => 'Bali', 'vacation_date' => '2020-06-01', 'status' => 1]);
     }
 
     /**

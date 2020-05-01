@@ -34,15 +34,28 @@ class Vacation extends Model
         return self::where('chat_id',$chat_id)->get();
     }
 
+    public function getActiveVacations(): Collection
+    {
+        return self::where('status', 1)->get();
+    }
+
     /**
      * @param string $destination
      * @param int $chat_id
+     * @param int $status
      */
     public function createInitialVacation(string $destination,int $chat_id): void
     {
         $this->destination = $destination;
         $this->chat_id = $chat_id;
         $this->vacation_date = '2020-01-01';
+        $this->status = 1;
+        $this->save();
+    }
+
+    public function setInactive()
+    {
+        $this->status = 2;
         $this->save();
     }
 }

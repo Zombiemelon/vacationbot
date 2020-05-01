@@ -21,10 +21,11 @@ class ScheduledMessageService
 
     public function sendDailyMessage()
     {
-        $vacations = Vacation::all();
+        $vacation = new Vacation();
+        $vacations = $vacation->getActiveVacations();
         foreach ($vacations as $vacation) {
             if($vacation->vacation_date < date('Y-m-d H:i:s')) {
-                $vacation->delete();
+                $vacation->setInactive();
             }
             $destination = $vacation->destination;
             $photoDownloadService = $this->photoDownloadService;
@@ -41,7 +42,7 @@ class ScheduledMessageService
                 $this->telegramBotService->sendPhoto($chat_id, $photo, $caption);
             } catch(Exception $exception) {
                 if($exception->getCode() == 403) {
-                    $vacation->delete();
+                    $vacation->setInactive();
                 }
             }
         }

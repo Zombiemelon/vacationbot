@@ -26,7 +26,7 @@ class VacationAlreadyExistsCest
             new Response('yo', [],200)
         );
 
-        $I->haveRecord('vacations', ['chat_id' => 666, 'destination' => 'Bali', 'vacation_date' => '2020-06-01']);
+        $I->haveRecord('vacations', ['chat_id' => 666, 'destination' => 'Bali', 'vacation_date' => '2020-06-01', 'status' => 1]);
         $I->sendPOST('/AAEAoCQbymlnr_6sDs1rCsjQcRxLtbLtWZQ', [
             'message' => [
                 'text' => "/vacation Bali 2020-06-01",

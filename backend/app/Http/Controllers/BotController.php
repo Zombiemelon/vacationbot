@@ -137,7 +137,7 @@ class BotController extends Controller
                     $message = $this->messageGenerationService->getStopMessage();
                     return $this->telegramBotService->sendMessage($chat_id, $message, $keyboard);
                 }
-                $vacation->delete();
+                $vacation->setInactive();
                 $chat->updateState(ChatStatus::COMPLETED);
                 $callbackQueryId = $request['callback_query']['id'];
                 $destination = $vacation->destination;

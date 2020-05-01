@@ -30,8 +30,8 @@ class GetButtonsByVacationsListTest extends Unit
     private function generateDbRecords() :void
     {
         $this->tester->haveRecord('vacations',
-            ['id' => 100, 'chat_id' => 666, 'destination' => 'Bali', 'vacation_date' => '2020-01-01']);
+            ['id' => 100, 'chat_id' => 666, 'destination' => 'Bali', 'vacation_date' => '2020-01-01', 'status' => 1]);
         $this->tester->haveRecord('vacations',
-            ['id' => 200, 'chat_id' => 666, 'destination' => 'Argentina', 'vacation_date' => '2020-01-10']);
+            ['id' => 200, 'chat_id' => 666, 'destination' => 'Argentina', 'vacation_date' => '2020-01-10', 'status' => 1]);
     }
 }

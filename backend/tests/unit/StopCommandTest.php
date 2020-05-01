@@ -55,7 +55,7 @@ class StopCommandTest extends \Codeception\Test\Unit
         $botController->vacation($request);
         $this->tester->seeRecord('chats',
             ["telegram_chat_id" => 666, "chat_status_id" => ChatStatus::COMPLETED]);
-        $this->tester->dontSeeRecord('vacations', ['id' => $command, 'chat_id' => 666, 'destination' => $destination, 'vacation_date' => $date]);
+        $this->tester->seeRecord('vacations', ['id' => $command, 'chat_id' => 666, 'destination' => $destination, 'vacation_date' => $date, 'status' => 2]);
     }
 
     /**
@@ -137,9 +137,9 @@ class StopCommandTest extends \Codeception\Test\Unit
     private function generateDbRecordsEmpty() :void
     {
         $this->tester->haveRecord('vacations',
-            ["id" => 100, 'chat_id' => 666, 'destination' => $this->destinationOne, 'vacation_date' => $this->dateOne]);
+            ["id" => 100, 'chat_id' => 666, 'destination' => $this->destinationOne, 'vacation_date' => $this->dateOne, 'status' => 1]);
         $this->tester->haveRecord('vacations',
-            ["id" => 200, 'chat_id' => 666, 'destination' => $this->destinationTwo, 'vacation_date' => $this->dateTwo]);
+            ["id" => 200, 'chat_id' => 666, 'destination' => $this->destinationTwo, 'vacation_date' => $this->dateTwo, 'status' => 1]);
         $this->tester->haveRecord('chats',
             ["telegram_chat_id" => 666, "chat_status_id" => ChatStatus::COMPLETED]);
     }
@@ -147,9 +147,9 @@ class StopCommandTest extends \Codeception\Test\Unit
     private function generateDbRecords() :void
     {
         $this->tester->haveRecord('vacations',
-            ['id' => 100, 'chat_id' => 666, 'destination' => $this->destinationOne, 'vacation_date' => $this->dateOne]);
+            ['id' => 100, 'chat_id' => 666, 'destination' => $this->destinationOne, 'vacation_date' => $this->dateOne, 'status' => 1]);
         $this->tester->haveRecord('vacations',
-            ['id' => 200, 'chat_id' => 666, 'destination' => $this->destinationTwo, 'vacation_date' => $this->dateTwo]);
+            ['id' => 200, 'chat_id' => 666, 'destination' => $this->destinationTwo, 'vacation_date' => $this->dateTwo, 'status' => 1]);
         $this->tester->haveRecord('chats',
             ['id' => 300, "telegram_chat_id" => 666, "chat_status_id" => ChatStatus::STOP]);
     }
