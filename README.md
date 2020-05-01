@@ -173,8 +173,8 @@ tar xzvf filebeat-7.6.2-linux-x86_64.tar.gz`
 1. Remove `db_volume` from the repository and find a way to set up test db in another way
 2. Rewrite with state pattern `getText(Request $request): string`
 3. Apply queue for sending photos
-4. Move to new EC2
 5. Change RDS security group so it is not accessible from outside
 6. Setup debugger to work during tests
 7. Replace env check with mock `getPhotoByDestination`
+8. Add linter
 
