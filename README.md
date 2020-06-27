@@ -162,7 +162,7 @@ c. Delete image
 3. Verify via email. The easiest way is to do it via Yandex.
 4. Get the SSL certificate from the email and add `.ca` file to the bottom of `.crt`
 5. Copy the data to `challengepro_ru.crt`
-6. If required generate CSR with key at [https://my.gogetssl.com/](https://my.gogetssl.com/). Cope the CSR and the key to `challengepro_ru.key`
+6. If required generate CSR with key at [https://my.gogetssl.com/](https://my.gogetssl.com/). Copy the CSR and the key to `challengepro_ru.key`
 
 #Install Logstash
 1. `apt-get update; 
