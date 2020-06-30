@@ -26,6 +26,7 @@ class Vacation extends Model
     {
         return self::where('chat_id',$chat_id)
             ->where('destination', $destination)
+            ->where('status','!=',2)
             ->where('vacation_date', $date)->first();
     }
 
