@@ -108,7 +108,7 @@ class BotController extends Controller
                 $photo = $this->photoDownloadService->getPhotoUrl($this->photoDownloadService->getPhotoByDestination($destination));
                 return $this->telegramBotService->sendPhoto($chat_id, $photo, $message);
             } elseif ($command == "/trips") {
-                $vacations = $this->vacation->getAllVacationsByChatId($chat_id);
+                $vacations = $this->vacation->getActiveVacations($chat_id);
                 foreach ($vacations as $vacation) {
                     $destination = $vacation->destination;
                     $vacation_date = $vacation->vacation_date;
