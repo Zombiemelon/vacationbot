@@ -14,27 +14,27 @@ pipeline {
         CONFIG='aws_sd'
     }
     stages {
-        stage ('Build Back') {
-            steps {
-                sh "docker build -t $CONTAINER_NAME:back -f ./docker/Dockerfile.staging.backend . "
-            }
-        }
-        stage ('Test') {
-            steps {
-                // Create network where I will connect all containers
-                sh "docker network create test"
-                script {
-                    //withRun command starts the container and doesn't stop it until all inside is executed.
-                    //Commands inside are executed on HOST machine
-                    docker.image("mysql/mysql-server:5.7").withRun('-p 3306:3306 -v $(pwd)/db_volume:/var/lib/mysql --name=db -e MYSQL_DATABASE=database -e MYSQL_USER=user -e MYSQL_PASSWORD=devpass -itd --network=test') {
-                            docker.image("$CONTAINER_NAME:back").inside("-itd --network=test") {
-                                sh '/home/backend/migration.sh'
-                                sh "cd /home/backend; php vendor/bin/codecept run acceptance"
-                            }
-                    }
-                }
-            }
-        }
+//         stage ('Build Back') {
+//             steps {
+//                 sh "docker build -t $CONTAINER_NAME:back -f ./docker/Dockerfile.staging.backend . "
+//             }
+//         }
+//         stage ('Test') {
+//             steps {
+//                 // Create network where I will connect all containers
+//                 sh "docker network create test"
+//                 script {
+//                     //withRun command starts the container and doesn't stop it until all inside is executed.
+//                     //Commands inside are executed on HOST machine
+//                     docker.image("mysql/mysql-server:5.7").withRun('-p 3306:3306 -v $(pwd)/db_volume:/var/lib/mysql --name=db -e MYSQL_DATABASE=database -e MYSQL_USER=user -e MYSQL_PASSWORD=devpass -itd --network=test') {
+//                             docker.image("$CONTAINER_NAME:back").inside("-itd --network=test") {
+//                                 sh '/home/backend/migration.sh'
+//                                 sh "cd /home/backend; php vendor/bin/codecept run acceptance"
+//                             }
+//                     }
+//                 }
+//             }
+//         }
         stage ('Build Production Back') {
             // Setting environment variables
             environment {
