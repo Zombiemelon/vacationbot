@@ -23,7 +23,7 @@ class TelegramBotService implements BotInterface
 
     public function sendMessage(string $chat_id, string $message = '', string $keyboard = 'missing'): int
     {
-        $api_url = env('BOT_API');
+        $api_url = 'https://api.telegram.org/bot1036050185:AAEAoCQbymlnr_6sDs1rCsjQcRxLtbLtWZQ';
         $message = urlencode($message);
         $url = "$api_url/sendMessage?chat_id=$chat_id&parse_mode=HTML&text=$message";
         $keyboard == 'missing' ? '' : $url.= "&reply_markup=$keyboard";

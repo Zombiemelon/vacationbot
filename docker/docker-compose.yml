@@ -18,10 +18,16 @@ services:
     image: fpm_7.2:latest
     volumes:
       - ${APP_PATH_HOST_BACK}:${APP_PATH_CONTAINER_BACK}
+      - ./php/crontab:/etc/crontab
       - ./php/php.ini:/usr/local/etc/php/php.ini
       - ./filebeat/filebeat.yml:/etc/filebeat/filebeat.yml
       - ./backend/supervisord.conf:/etc/supervisor/supervisord.conf
     working_dir: ${APP_PATH_CONTAINER_BACK}
+
+  selenium:
+    image: selenium/standalone-chrome
+    ports:
+      - "4444:4444"
 
   db:
     image: mysql:5.7
