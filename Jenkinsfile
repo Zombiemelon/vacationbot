@@ -29,7 +29,7 @@ pipeline {
                     docker.image("mysql/mysql-server:5.7").withRun('-p 3306:3306 -v $(pwd)/db_volume:/var/lib/mysql --name=db -e MYSQL_DATABASE=database -e MYSQL_USER=user -e MYSQL_PASSWORD=devpass -itd --network=test') {
                             docker.image("$CONTAINER_NAME:back").inside("-itd --network=test") {
                                 sh '/home/backend/migration.sh'
-                                sh "cd /home/backend; php vendor/bin/codecept run"
+                                sh "cd /home/backend; php vendor/bin/codecept run acceptance"
                             }
                     }
                 }
