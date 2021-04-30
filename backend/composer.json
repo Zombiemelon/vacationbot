@@ -13,7 +13,7 @@
         "barryvdh/laravel-dompdf": "^0.8.4",
         "doctrine/dbal": "v2.9.2",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "6.20.*",
         "laravel/tinker": "^1.0",
         "guzzlehttp/guzzle": "^6.0",
         "unsplash/unsplash":"*",
