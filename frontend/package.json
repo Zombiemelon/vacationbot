@@ -19,7 +19,7 @@
     "@material-ui/icons": "^4.2.1",
     "axios": "^0.18.0",
     "dotenv-webpack": "^1.7.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "notistack": "^0.9.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
